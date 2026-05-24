@@ -5,16 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Personal homepage — designer, developer, and curious builder."
+      content="Matt — from Fort Wayne, Indiana. Learning to code with Cursor and building an intuitive platform for learning electronic circuits."
     />
-    <title>Your Name — Personal Homepage</title>
+    <title>Matt — Learning to build</title>
+    <script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
+              sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+              display: ["Syne", "system-ui", "sans-serif"],
+            },
+            colors: {
+              surface: {
+                light: "#f8f7f4",
+                dark: "#0c0e12",
+              },
+              accent: {
+                DEFAULT: "#14b8a6",
+                glow: "#2dd4bf",
+                muted: "#0d9488",
+              },
+            },
+            animation: {
+              "fade-up": "fadeUp 0.7s ease-out forwards",
+              "fade-in": "fadeIn 0.6s ease-out forwards",
+              float: "float 6s ease-in-out infinite",
+              pulse-soft: "pulseSoft 4s ease-in-out infinite",
+            },
+            keyframes: {
+              fadeUp: {
+                "0%": { opacity: "0", transform: "translateY(16px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-12px)" },
+              },
+              pulseSoft: {
+                "0%, 100%": { opacity: "0.4" },
+                "50%": { opacity: "0.7" },
+              },
             },
           },
         },
@@ -23,216 +71,460 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
+    <style>
+      .hero-glow {
+        background: radial-gradient(
+            ellipse 80% 50% at 50% -20%,
+            rgba(20, 184, 166, 0.18),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 100% 0%,
+            rgba(99, 102, 241, 0.1),
+            transparent
+          );
+      }
+      html.dark .hero-glow {
+        background: radial-gradient(
+            ellipse 80% 50% at 50% -20%,
+            rgba(45, 212, 191, 0.12),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 100% 0%,
+            rgba(99, 102, 241, 0.08),
+            transparent
+          );
+      }
+      .stagger > * {
+        opacity: 0;
+        animation: fadeUp 0.7s ease-out forwards;
+      }
+      .stagger > *:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .stagger > *:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .stagger > *:nth-child(3) {
+        animation-delay: 0.25s;
+      }
+      .stagger > *:nth-child(4) {
+        animation-delay: 0.35s;
+      }
+      .stagger > *:nth-child(5) {
+        animation-delay: 0.45s;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .grid-pattern {
+        background-image: linear-gradient(
+            rgba(148, 163, 184, 0.08) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+      html.dark .grid-pattern {
+        background-image: linear-gradient(
+            rgba(148, 163, 184, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.04) 1px, transparent 1px);
+      }
+    </style>
   </head>
   <body
-    class="min-h-screen bg-zinc-50 font-sans text-zinc-800 antialiased selection:bg-zinc-900 selection:text-white"
+    class="min-h-screen bg-surface-light font-sans text-slate-700 antialiased transition-colors duration-300 dark:bg-surface-dark dark:text-slate-300 selection:bg-teal-600 selection:text-white dark:selection:bg-teal-400 dark:selection:text-slate-900"
   >
     <!-- Nav -->
     <header
-      class="fixed inset-x-0 top-0 z-50 border-b border-zinc-200/80 bg-zinc-50/80 backdrop-blur-md"
+      class="fixed inset-x-0 top-0 z-50 border-b border-slate-200/70 bg-surface-light/80 backdrop-blur-xl transition-colors duration-300 dark:border-slate-800/70 dark:bg-surface-dark/80"
     >
       <nav
-        class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4"
+        class="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4"
         aria-label="Main"
       >
         <a
           href="#"
-          class="text-sm font-semibold tracking-tight text-zinc-900 hover:text-zinc-600"
-          >Your Name</a
+          class="font-display text-sm font-bold tracking-tight text-slate-900 transition hover:text-teal-600 dark:text-white dark:hover:text-teal-400"
+          >Matt</a
         >
-        <ul class="flex gap-6 text-sm font-medium text-zinc-600">
-          <li>
-            <a href="#about" class="transition hover:text-zinc-900">About</a>
-          </li>
-          <li>
-            <a href="#work" class="transition hover:text-zinc-900">Work</a>
-          </li>
-          <li>
-            <a href="#contact" class="transition hover:text-zinc-900"
-              >Contact</a
+        <div class="flex items-center gap-2 sm:gap-6">
+          <ul class="flex gap-4 text-sm font-medium text-slate-600 sm:gap-6 dark:text-slate-400">
+            <li>
+              <a
+                href="#about"
+                class="transition hover:text-slate-900 dark:hover:text-white"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#work"
+                class="transition hover:text-slate-900 dark:hover:text-white"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="transition hover:text-slate-900 dark:hover:text-white"
+                >Contact</a
+              >
+            </li>
+          </ul>
+          <button
+            id="theme-toggle"
+            type="button"
+            class="relative ml-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-slate-300 hover:text-slate-900 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:border-slate-600 dark:hover:text-white"
+            aria-label="Toggle dark mode"
+          >
+            <svg
+              id="icon-sun"
+              class="h-4 w-4 dark:hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
             >
-          </li>
-        </ul>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <svg
+              id="icon-moon"
+              class="hidden h-4 w-4 dark:block"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+          </button>
+        </div>
       </nav>
     </header>
 
-    <main class="mx-auto max-w-3xl px-6 pt-28 pb-20">
+    <main class="relative overflow-hidden">
       <!-- Hero -->
-      <section class="mb-24" aria-labelledby="hero-heading">
-        <p class="mb-4 text-sm font-medium text-zinc-500">Hello, I'm</p>
-        <h1
-          id="hero-heading"
-          class="mb-6 text-4xl font-bold tracking-tight text-zinc-900 sm:text-5xl"
-        >
-          Your Name
-        </h1>
-        <p class="max-w-xl text-lg leading-relaxed text-zinc-600">
-          I build thoughtful digital experiences — from interfaces to small
-          tools. Currently exploring design, code, and whatever sits in between.
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a
-            href="#work"
-            class="inline-flex items-center rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-700"
+      <section
+        class="hero-glow grid-pattern relative mx-auto max-w-4xl px-6 pt-32 pb-20 sm:pt-40 sm:pb-28"
+        aria-labelledby="hero-heading"
+      >
+        <div
+          class="pointer-events-none absolute -right-20 top-20 h-64 w-64 animate-float rounded-full bg-teal-400/20 blur-3xl dark:bg-teal-500/10"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="pointer-events-none absolute -left-16 top-48 h-48 w-48 animate-pulse-soft rounded-full bg-indigo-400/15 blur-3xl dark:bg-indigo-500/10"
+          aria-hidden="true"
+        ></div>
+
+        <div class="stagger relative">
+          <p
+            class="mb-5 inline-flex items-center gap-2 rounded-full border border-teal-200/80 bg-teal-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-800 dark:border-teal-800/50 dark:bg-teal-950/40 dark:text-teal-300"
           >
-            View my work
-          </a>
-          <a
-            href="#contact"
-            class="inline-flex items-center rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium text-zinc-800 transition hover:border-zinc-400 hover:bg-zinc-100"
+            <span
+              class="h-1.5 w-1.5 rounded-full bg-teal-500 animate-pulse"
+              aria-hidden="true"
+            ></span>
+            Fort Wayne, Indiana
+          </p>
+          <h1
+            id="hero-heading"
+            class="font-display text-5xl font-extrabold leading-[1.1] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl dark:text-white"
           >
-            Get in touch
-          </a>
+            Hi, I'm
+            <span
+              class="bg-gradient-to-r from-teal-600 via-teal-500 to-emerald-500 bg-clip-text text-transparent dark:from-teal-400 dark:via-teal-300 dark:to-emerald-400"
+              >Matt</span
+            >
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl dark:text-slate-400">
+            I'm learning to code with
+            <strong class="font-semibold text-slate-800 dark:text-slate-200">Cursor</strong>
+            and building toward something I care about: making electronic circuits
+            easier to understand for everyone.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a
+              href="#work"
+              class="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition hover:bg-slate-800 hover:shadow-xl dark:bg-teal-500 dark:text-slate-900 dark:shadow-teal-500/20 dark:hover:bg-teal-400"
+            >
+              See what I'm building
+              <span
+                class="transition group-hover:translate-x-0.5"
+                aria-hidden="true"
+                >→</span
+              >
+            </a>
+            <a
+              href="#about"
+              class="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-800 backdrop-blur transition hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-200 dark:hover:border-slate-600 dark:hover:bg-slate-800"
+            >
+              About me
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- About -->
-      <section id="about" class="mb-24 scroll-mt-24" aria-labelledby="about-heading">
-        <h2
-          id="about-heading"
-          class="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400"
+      <div class="mx-auto max-w-4xl px-6">
+        <!-- About -->
+        <section
+          id="about"
+          class="mb-24 scroll-mt-24 opacity-0 animate-fade-up"
+          style="animation-delay: 0.5s; animation-fill-mode: forwards"
+          aria-labelledby="about-heading"
         >
-          About
-        </h2>
-        <div class="space-y-4 text-zinc-600 leading-relaxed">
-          <p>
-            I'm a curious builder who likes clean layouts, readable code, and
-            projects that feel good to use. This site is a simple home on the
-            web — a place to share what I'm working on and how to reach me.
-          </p>
-          <p>
-            When I'm not at the keyboard, you'll find me learning something new,
-            sketching ideas, or enjoying time away from screens.
-          </p>
-        </div>
-        <ul class="mt-8 flex flex-wrap gap-2" aria-label="Skills">
-          <li
-            class="rounded-full bg-white px-3 py-1 text-sm font-medium text-zinc-700 ring-1 ring-zinc-200"
+          <h2
+            id="about-heading"
+            class="mb-8 flex items-center gap-3 font-display text-2xl font-bold text-slate-900 dark:text-white"
           >
-            HTML & CSS
-          </li>
-          <li
-            class="rounded-full bg-white px-3 py-1 text-sm font-medium text-zinc-700 ring-1 ring-zinc-200"
+            <span
+              class="h-px w-8 bg-gradient-to-r from-teal-500 to-transparent"
+              aria-hidden="true"
+            ></span>
+            About
+          </h2>
+          <div
+            class="rounded-2xl border border-slate-200/80 bg-white/60 p-8 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/40"
           >
-            JavaScript
-          </li>
-          <li
-            class="rounded-full bg-white px-3 py-1 text-sm font-medium text-zinc-700 ring-1 ring-zinc-200"
-          >
-            Python
-          </li>
-          <li
-            class="rounded-full bg-white px-3 py-1 text-sm font-medium text-zinc-700 ring-1 ring-zinc-200"
-          >
-            UI design
-          </li>
-        </ul>
-      </section>
+            <div class="space-y-4 leading-relaxed text-slate-600 dark:text-slate-400">
+              <p>
+                I'm Matt, based in
+                <strong class="text-slate-800 dark:text-slate-200">Fort Wayne, Indiana</strong>.
+                I'm new to programming but not new to being curious — I like
+                understanding how things work, especially when wires, components,
+                and schematics are involved.
+              </p>
+              <p>
+                Right now I'm using
+                <strong class="text-slate-800 dark:text-slate-200">Cursor</strong>
+                as my main tool for learning: writing HTML, styling with Tailwind,
+                experimenting with Python, and turning ideas into real pages and
+                prototypes one step at a time.
+              </p>
+              <p>
+                This site is my corner of the internet while I learn — a place to
+                track what I'm building and stay honest about being early in the
+                journey.
+              </p>
+            </div>
+            <ul class="mt-8 flex flex-wrap gap-2" aria-label="Currently learning">
+              <li
+                class="rounded-full bg-teal-50 px-3 py-1.5 text-sm font-medium text-teal-800 ring-1 ring-teal-200/80 dark:bg-teal-950/50 dark:text-teal-300 dark:ring-teal-800/50"
+              >
+                Cursor
+              </li>
+              <li
+                class="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 ring-1 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700"
+              >
+                HTML & Tailwind
+              </li>
+              <li
+                class="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 ring-1 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700"
+              >
+                Python
+              </li>
+              <li
+                class="rounded-full bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 ring-1 ring-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700"
+              >
+                Electronic circuits
+              </li>
+            </ul>
+          </div>
+        </section>
 
-      <!-- Work -->
-      <section id="work" class="mb-24 scroll-mt-24" aria-labelledby="work-heading">
-        <h2
-          id="work-heading"
-          class="mb-8 text-xs font-semibold uppercase tracking-widest text-zinc-400"
+        <!-- Projects -->
+        <section
+          id="work"
+          class="mb-24 scroll-mt-24"
+          aria-labelledby="work-heading"
         >
-          Selected work
-        </h2>
-        <ul class="space-y-6">
-          <li>
-            <article
-              class="group rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-zinc-300 hover:shadow-sm"
-            >
-              <h3 class="font-semibold text-zinc-900 group-hover:text-zinc-600">
-                <a href="#">Project one</a>
-              </h3>
-              <p class="mt-2 text-sm text-zinc-600">
-                A short description of what you built and why it matters.
-              </p>
-              <p class="mt-3 text-xs font-medium text-zinc-400">2025 · Web</p>
-            </article>
-          </li>
-          <li>
-            <article
-              class="group rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-zinc-300 hover:shadow-sm"
-            >
-              <h3 class="font-semibold text-zinc-900 group-hover:text-zinc-600">
-                <a href="#">Project two</a>
-              </h3>
-              <p class="mt-2 text-sm text-zinc-600">
-                Another highlight — tools, experiments, or client work.
-              </p>
-              <p class="mt-3 text-xs font-medium text-zinc-400">2024 · Script</p>
-            </article>
-          </li>
-          <li>
-            <article
-              class="group rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-zinc-300 hover:shadow-sm"
-            >
-              <h3 class="font-semibold text-zinc-900 group-hover:text-zinc-600">
-                <a href="#">This homepage</a>
-              </h3>
-              <p class="mt-2 text-sm text-zinc-600">
-                A minimal personal site built with HTML and Tailwind CSS.
-              </p>
-              <p class="mt-3 text-xs font-medium text-zinc-400">2026 · Static</p>
-            </article>
-          </li>
-        </ul>
-      </section>
+          <h2
+            id="work-heading"
+            class="mb-3 font-display text-2xl font-bold text-slate-900 dark:text-white"
+          >
+            Projects
+          </h2>
+          <p class="mb-8 max-w-xl text-slate-600 dark:text-slate-400">
+            What I'm actually working on — no filler, just the real stuff in
+            progress.
+          </p>
+          <ul class="space-y-5">
+            <li class="opacity-0 animate-fade-up" style="animation-delay: 0.6s; animation-fill-mode: forwards">
+              <article
+                class="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 transition duration-300 hover:border-teal-300/60 hover:shadow-lg hover:shadow-teal-500/5 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-teal-700/50 dark:hover:shadow-teal-500/5 sm:p-8"
+              >
+                <div
+                  class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-teal-400/10 blur-2xl transition group-hover:bg-teal-400/20 dark:bg-teal-500/10"
+                  aria-hidden="true"
+                ></div>
+                <div class="relative flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <span
+                      class="mb-3 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+                      >In progress</span
+                    >
+                    <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">
+                      Circuit learning platform
+                    </h3>
+                  </div>
+                  <span
+                    class="font-mono text-xs text-slate-400 dark:text-slate-500"
+                    >2026</span
+                  >
+                </div>
+                <p class="relative mt-3 text-slate-600 leading-relaxed dark:text-slate-400">
+                  An intuitive learning platform for
+                  <strong class="text-slate-800 dark:text-slate-200">electronic circuits</strong>
+                  — the main project I'm building toward. The goal is to help
+                  people go from confused by schematics to actually understanding
+                  how current flows, what components do, and how to reason about
+                  a circuit step by step. Still early: exploring structure,
+                  lessons, and interactions as I learn to code.
+                </p>
+                <p class="relative mt-4 text-sm text-slate-500 dark:text-slate-500">
+                  Learning · Product design · Web
+                </p>
+              </article>
+            </li>
+            <li class="opacity-0 animate-fade-up" style="animation-delay: 0.7s; animation-fill-mode: forwards">
+              <article
+                class="group rounded-2xl border border-slate-200/80 bg-white p-6 transition duration-300 hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-slate-700 sm:p-8"
+              >
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <span
+                      class="mb-3 inline-block rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                      >Live</span
+                    >
+                    <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">
+                      This homepage
+                    </h3>
+                  </div>
+                  <span
+                    class="font-mono text-xs text-slate-400 dark:text-slate-500"
+                    >2026</span
+                  >
+                </div>
+                <p class="mt-3 text-slate-600 leading-relaxed dark:text-slate-400">
+                  My first real personal site — built with HTML, Tailwind CSS, and
+                  Cursor. A practice ground for layout, typography, dark mode, and
+                  putting myself on the web while I learn.
+                </p>
+                <p class="mt-4 text-sm text-slate-500">HTML · Tailwind · Cursor</p>
+              </article>
+            </li>
+            <li class="opacity-0 animate-fade-up" style="animation-delay: 0.8s; animation-fill-mode: forwards">
+              <article
+                class="group rounded-2xl border border-slate-200/80 bg-white p-6 transition duration-300 hover:border-slate-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-slate-700 sm:p-8"
+              >
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <span
+                      class="mb-3 inline-block rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+                      >Experiment</span
+                    >
+                    <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">
+                      Python practice
+                    </h3>
+                  </div>
+                  <span
+                    class="font-mono text-xs text-slate-400 dark:text-slate-500"
+                    >2026</span
+                  >
+                </div>
+                <p class="mt-3 text-slate-600 leading-relaxed dark:text-slate-400">
+                  Small scripts and exercises in this repo (like
+                  <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-sm text-slate-800 dark:bg-slate-800 dark:text-slate-200">test.py</code>)
+                  as I get comfortable with syntax, logic, and eventually tooling
+                  that might support the circuit platform.
+                </p>
+                <p class="mt-4 text-sm text-slate-500">Python · Learning</p>
+              </article>
+            </li>
+          </ul>
+        </section>
 
-      <!-- Contact -->
-      <section id="contact" class="scroll-mt-24" aria-labelledby="contact-heading">
-        <h2
-          id="contact-heading"
-          class="mb-6 text-xs font-semibold uppercase tracking-widest text-zinc-400"
+        <!-- Contact -->
+        <section
+          id="contact"
+          class="scroll-mt-24 opacity-0 animate-fade-up"
+          style="animation-delay: 0.9s; animation-fill-mode: forwards"
+          aria-labelledby="contact-heading"
         >
-          Contact
-        </h2>
-        <p class="mb-8 max-w-md text-zinc-600 leading-relaxed">
-          Open to collaboration, feedback, or a friendly hello. The best way to
-          reach me is by email.
-        </p>
-        <a
-          href="mailto:you@example.com"
-          class="inline-flex items-center gap-2 text-lg font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition hover:decoration-zinc-900"
-        >
-          you@example.com
-          <span aria-hidden="true">→</span>
-        </a>
-        <ul class="mt-10 flex gap-6 text-sm font-medium text-zinc-600">
-          <li>
-            <a
-              href="https://github.com"
-              class="transition hover:text-zinc-900"
-              rel="noopener noreferrer"
-              target="_blank"
-              >GitHub</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com"
-              class="transition hover:text-zinc-900"
-              rel="noopener noreferrer"
-              target="_blank"
-              >LinkedIn</a
-            >
-          </li>
-        </ul>
-      </section>
+          <h2
+            id="contact-heading"
+            class="mb-8 flex items-center gap-3 font-display text-2xl font-bold text-slate-900 dark:text-white"
+          >
+            <span
+              class="h-px w-8 bg-gradient-to-r from-teal-500 to-transparent"
+              aria-hidden="true"
+            ></span>
+            Contact
+          </h2>
+          <div
+            class="rounded-2xl border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/80 p-8 dark:border-slate-800 dark:from-slate-900/60 dark:to-slate-900/30"
+          >
+            <p class="max-w-lg leading-relaxed text-slate-600 dark:text-slate-400">
+              I'm early in my coding journey and focused on building the circuit
+              learning platform. I'm not listing public contact links yet — but
+              if you're learning too, especially around electronics or ed-tech,
+              I'd love to connect when the time is right.
+            </p>
+            <p class="mt-6 text-sm font-medium text-slate-500 dark:text-slate-500">
+              Fort Wayne, IN · Learning with Cursor
+            </p>
+          </div>
+        </section>
+      </div>
     </main>
 
-    <footer class="border-t border-zinc-200 py-8">
-      <p class="text-center text-sm text-zinc-500">
-        © <span id="year"></span> Your Name. Built with HTML & Tailwind.
+    <footer
+      class="border-t border-slate-200/80 py-10 transition-colors dark:border-slate-800"
+    >
+      <p class="text-center text-sm text-slate-500 dark:text-slate-500">
+        © <span id="year"></span> Matt · Fort Wayne, Indiana · Built with HTML,
+        Tailwind & Cursor
       </p>
     </footer>
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      const toggle = document.getElementById("theme-toggle");
+      const root = document.documentElement;
+
+      function setTheme(dark) {
+        root.classList.toggle("dark", dark);
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      }
+
+      toggle.addEventListener("click", () => {
+        setTheme(!root.classList.contains("dark"));
+      });
     </script>
   </body>
 </html>
